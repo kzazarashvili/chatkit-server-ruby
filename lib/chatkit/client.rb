@@ -115,6 +115,23 @@ module Chatkit
       )
     end
 
+    def update_user(user_id, name = nil, avatar_url = nil, custom_data = nil)
+      body = {}
+      body[:name] = name unless name.nil?
+      body[:avatar_url] = avatar_url unless avatar_url.nil?
+      body[:custom_data] = custom_data unless custom_data.nil?
+
+      @api_instance.request(
+        method: "PUT",
+        path: "/users/#{user_id}",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: body,
+        jwt: generate_su_token
+      )
+    end
+
     # Room API
 
     def get_room(room_id)
